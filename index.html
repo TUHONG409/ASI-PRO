@@ -7,53 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .nav-button.active {
-            background-color: #3b82f6;
-            color: white;
-            font-weight: 600;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Interactive Muscle Map Styles */
-        .muscle-highlight {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .muscle-highlight:hover {
-            fill: #ef4444;
-            opacity: 0.8;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-button.active { background-color: #3b82f6; color: white; font-weight: 600; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Hiệu ứng ảnh bơi lội */
+        .swim-visual { transition: transform 0.5s ease; filter: brightness(0.8) contrast(1.2); }
+        .swim-visual:hover { transform: scale(1.03); filter: brightness(1); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header -->
     <header class="border-b border-slate-700 bg-slate-900 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xl tracking-tighter">
-                    ASI
-                </div>
-                <h1 class="font-bold text-xl hidden sm:block tracking-tight">Aqua Skill Inspire</h1>
+                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xl tracking-tighter">ASI</div>
+                <h1 class="font-bold text-xl hidden sm:block tracking-tight uppercase">Aqua Skill Inspire</h1>
             </div>
             <nav class="flex gap-2 overflow-x-auto no-scrollbar">
-                <button onclick="changeStyle('freestyle')" id="btn-freestyle" class="nav-button active px-4 py-2 rounded-lg text-sm transition-colors whitespace-nowrap">Bơi Sải (FS)</button>
+                <button onclick="changeStyle('freestyle')" id="btn-freestyle" class="nav-button active px-4 py-2 rounded-lg text-sm whitespace-nowrap">Bơi Sải (FS)</button>
                 <button onclick="changeStyle('breaststroke')" id="btn-breaststroke" class="nav-button px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white transition-colors whitespace-nowrap">Bơi Ếch (BR)</button>
                 <button onclick="changeStyle('butterfly')" id="btn-butterfly" class="nav-button px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white transition-colors whitespace-nowrap">Bơi Bướm (FLY)</button>
                 <button onclick="changeStyle('backstroke')" id="btn-backstroke" class="nav-button px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white transition-colors whitespace-nowrap">Bơi Ngửa (BK)</button>
@@ -61,377 +34,121 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Left Column: Visuals & Highlights -->
         <div class="lg:col-span-7 space-y-6">
             
-            <!-- Dynamic Image Container -->
-            <div class="glass-panel rounded-2xl overflow-hidden relative aspect-video flex items-center justify-center border border-slate-700 shadow-2xl">
+            <div class="glass-panel rounded-2xl overflow-hidden relative aspect-video flex items-center justify-center border border-slate-700 shadow-2xl group">
                 <div id="style-image-container" class="absolute inset-0 w-full h-full">
-                    <!-- Images will be injected here via JS -->
-                    <img id="main-visual" src="https://placehold.co/800x450/1e293b/cbd5e1?text=Freestyle+Biomechanics" alt="Biomechanics" class="w-full h-full object-cover opacity-50 mix-blend-luminosity">
+                    <img id="main-visual" src="https://images.unsplash.com/photo-1530549387631-afb16881127e?auto=format&fit=crop&q=80&w=800" alt="Swimming Biomechanics" class="w-full h-full object-cover opacity-60 swim-visual">
                 </div>
                 
-                <!-- Overlay Data -->
-                <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 to-transparent">
-                    <h2 id="style-title" class="text-3xl font-extrabold text-white mb-2">Bơi Sải (Freestyle)</h2>
-                    <p id="style-subtitle" class="text-blue-400 font-medium">Tối ưu hóa Trục Thân & Momen Xoắn</p>
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent">
+                    <h2 id="style-title" class="text-3xl font-extrabold text-white mb-2 uppercase tracking-tighter">Bơi Sải (Freestyle)</h2>
+                    <p id="style-subtitle" class="text-blue-400 font-medium text-lg">Tối ưu hóa Trục Thân & Momen Xoắn</p>
                 </div>
             </div>
 
-            <!-- Key Biomechanics Stats -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="glass-panel p-4 rounded-xl text-center">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Lực Đẩy Chính</div>
-                    <div id="stat-propulsion" class="text-lg font-semibold text-blue-400">70% Tay / 30% Chân</div>
+                <div class="glass-panel p-4 rounded-xl text-center border-t-2 border-blue-500">
+                    <div class="text-slate-400 text-[10px] uppercase tracking-widest mb-1">Lực Đẩy</div>
+                    <div id="stat-propulsion" class="text-sm font-bold text-blue-400 italic">70% Tay / 30% Chân</div>
                 </div>
-                <div class="glass-panel p-4 rounded-xl text-center">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Lực Cản (Drag)</div>
-                    <div id="stat-drag" class="text-lg font-semibold text-red-400">Profile Form</div>
+                <div class="glass-panel p-4 rounded-xl text-center border-t-2 border-red-500">
+                    <div class="text-slate-400 text-[10px] uppercase tracking-widest mb-1">Lực Cản (Drag)</div>
+                    <div id="stat-drag" class="text-sm font-bold text-red-400 italic">Profile Form</div>
                 </div>
-                <div class="glass-panel p-4 rounded-xl text-center">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Cơ Cốt Lõi</div>
-                    <div id="stat-core" class="text-lg font-semibold text-green-400">Rotation (Xoắn)</div>
+                <div class="glass-panel p-4 rounded-xl text-center border-t-2 border-green-500">
+                    <div class="text-slate-400 text-[10px] uppercase tracking-widest mb-1">Cơ Cốt Lõi</div>
+                    <div id="stat-core" class="text-sm font-bold text-green-400 italic">Rotation</div>
                 </div>
-                <div class="glass-panel p-4 rounded-xl text-center">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Nhịp Thở</div>
-                    <div id="stat-breath" class="text-lg font-semibold text-purple-400">Bilateral</div>
+                <div class="glass-panel p-4 rounded-xl text-center border-t-2 border-purple-500">
+                    <div class="text-slate-400 text-[10px] uppercase tracking-widest mb-1">Nhịp Thở</div>
+                    <div id="stat-breath" class="text-sm font-bold text-purple-400 italic">Bilateral</div>
                 </div>
             </div>
             
-            <!-- Interactive Anatomy SVG Placeholder (Concept) -->
             <div class="glass-panel rounded-2xl p-6 border border-slate-700">
-                 <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                    Bản Đồ Kích Hoạt Cơ Bắp
-                </h3>
-                <div class="relative h-48 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden group">
-                    <p class="text-sm text-slate-400 text-center px-4">
-                        (Mô phỏng 3D hệ cơ xương - Nhấn vào các vùng sáng để xem chi tiết)<br>
-                        <span class="text-blue-400 text-xs mt-2 block" id="muscle-hint">Đang hiển thị nhóm cơ: Cơ Xô (Latissimus Dorsi)</span>
-                    </p>
-                    <!-- Abstract representation of muscles -->
-                    <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 50% 50%, #3b82f6 0%, transparent 50%);"></div>
-                </div>
+                 <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">🧠 Giải Phẫu Chuyên Sâu</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <img id="anatomy-img" src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=400" class="rounded-lg object-cover w-full h-40 opacity-70 border border-slate-600">
+                     <div class="flex flex-col justify-center">
+                         <span class="text-blue-400 text-xs font-bold uppercase mb-2">Trọng tâm kích hoạt:</span>
+                         <p id="muscle-hint" class="text-sm text-slate-300 leading-relaxed italic font-light">Đang hiển thị nhóm cơ: Cơ Xô (Latissimus Dorsi)</p>
+                     </div>
+                 </div>
             </div>
-
         </div>
 
-        <!-- Right Column: Y Sinh & Giải Phẫu Data -->
-        <div class="lg:col-span-5 space-y-4 fade-in" id="content-container">
-            <!-- Content injected by JS -->
-        </div>
+        <div class="lg:col-span-5 space-y-4 fade-in" id="content-container"></div>
 
-        <!-- ASI AI Coach Section (Full Width) -->
-        <div class="lg:col-span-12 mt-4 fade-in">
-            <div class="glass-panel rounded-2xl p-6 border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.15)] relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500"></div>
-                <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                    ✨ ASI AI Coach - Cố Vấn Giải Phẫu & Kỹ Thuật
-                </h3>
-                <p class="text-slate-400 text-sm mb-4">Nhập mô tả lỗi bơi hoặc cơn đau của học viên (VD: "Bị chìm hông khi bơi sải", "Đau mỏi vai gáy khi bơi ếch"). AI sẽ phân tích dựa trên cơ sinh học và đề xuất bài tập khắc phục tức thì.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="ai-query" placeholder="Nhập vấn đề của học viên vào đây..." class="flex-grow bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors">
-                    <button onclick="askAIAssistant()" id="ai-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
-                        ✨ Phân tích lỗi
-                    </button>
-                </div>
-                
-                <div id="ai-loading" class="hidden mt-6 text-center text-blue-400">
-                    <svg class="animate-spin h-6 w-6 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Đang thiết lập kết nối giải phẫu hệ vận động...
-                </div>
-                <div id="ai-result-container" class="hidden mt-6 p-5 bg-slate-900/80 rounded-xl border border-slate-700">
-                    <div id="ai-result-content" class="text-sm text-slate-200 leading-relaxed space-y-2">
-                        <!-- AI content injected here -->
+        <div class="lg:col-span-12 mt-4">
+            <div id="ai-chat-box" class="glass-panel rounded-2xl p-8 border-2 border-blue-500/50 shadow-blue-500/10 shadow-2xl text-center">
+                <h3 class="text-2xl font-black text-white mb-3">KÍCH HOẠT TRỢ LÝ ASI AI</h3>
+                <p class="text-slate-400 mb-6 max-w-2xl mx-auto">Vì lý do bảo mật và vận hành kiến thức chuyên sâu, AI Coach sẽ chạy trên nền tảng riêng. Bạn có thể hỏi trực tiếp tại đây.</p>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="p-4 bg-blue-600/20 rounded-full animate-pulse">
+                        <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
+                    <p class="text-blue-400 font-bold uppercase tracking-widest">Đang kết nối dữ liệu ASI Pro...</p>
+                    <p class="text-xs text-slate-500">(Vui lòng thay đoạn mã Coze Widget bên dưới để hiện khung chat)</p>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <footer class="border-t border-slate-800 bg-slate-900 mt-auto py-6">
-        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-            <p>Hệ thống đánh giá Giải Phẫu & Thủy Động Học Bơi Lội - Thiết kế độc quyền bởi ASI</p>
-            <p class="mt-1">Dành cho Chuyên gia & Người thực hành bơi lội chuyên sâu</p>
-        </div>
-    </footer>
-
     <script>
-        // Data Base for Swimming Styles (Y Sinh & Giải Phẫu)
         const swimData = {
             freestyle: {
                 title: "Bơi Sải (Freestyle)",
                 subtitle: "Tối ưu hóa Trục Thân & Momen Xoắn",
-                imageText: "Bơi Sải - Kinetic Chain",
-                stats: { prop: "70% Tay / 30% Chân", drag: "Profile Form", core: "Xoay Trục (Rotation)", breath: "Bilateral (Hai bên)" },
+                img: "https://images.unsplash.com/photo-1530549387631-afb16881127e?auto=format&fit=crop&q=80&w=800",
+                stats: { prop: "70% Tay / 30% Chân", drag: "Profile Form", core: "Xoay Trục", breath: "Bilateral" },
                 anatomy: [
-                    {
-                        phase: "Pha Tỳ Nước (Catch & Pull)",
-                        muscles: "Cơ Xô (Latissimus Dorsi), Cơ Ngực Lớn (Pectoralis Major)",
-                        hydrodynamics: "Tạo lực nâng (Lift) và lực đẩy (Drag) bằng cách sử dụng bàn tay và cẳng tay như một mái chèo tạo momen xoắn.",
-                        asiNote: "Lỗi thường gặp: Gồng khớp vai, 'rớt cùi chỏ'. Cần kết nối lực từ rốn truyền qua cơ xô."
-                    },
-                    {
-                        phase: "Pha Đạp Chân (Flutter Kick)",
-                        muscles: "Cơ Tứ Đầu Đùi (Quads), Cơ Mông Đại (Gluteus Maximus), Cơ Lõi (Core)",
-                        hydrodynamics: "Duy trì độ nổi (Flat position) và giảm lực cản hình dáng (Form Drag).",
-                        asiNote: "Điểm nghẽn: Gập gối quá nhiều hoặc cứng cổ chân. Chuyển động phải phát lực từ khớp háng."
-                    },
-                    {
-                        phase: "Trục Thân & Hơi Thở (Body Roll)",
-                        muscles: "Cơ Chéo Bụng (Obliques), Cơ Răng Cưa (Serratus Anterior)",
-                        hydrodynamics: "Xoay thân 30-40 độ để giảm tiết diện cản nước và tăng tầm với của sải tay.",
-                        asiNote: "Không ngoái cổ để thở, hãy xoay toàn bộ trục thân. Hơi thở phải xả hết dưới nước để tránh khóa cơ hoành."
-                    }
+                    { phase: "Pha Tỳ Nước (Catch)", muscles: "Cơ Xô, Cơ Ngực Lớn", hydrodynamics: "Sử dụng bàn tay như mái chèo tạo momen xoắn.", asiNote: "Đừng gồng khớp vai, hãy thả lỏng để 'cảm' nước." }
                 ]
             },
             breaststroke: {
                 title: "Bơi Ếch (Breaststroke)",
-                subtitle: "Nhịp điệu Thủy Động Học (Timing & Glide)",
-                imageText: "Bơi Ếch - Timing & Glide",
-                stats: { prop: "30% Tay / 70% Chân", drag: "Wave Drag (Sóng)", core: "Gập / Duỗi (Flexion)", breath: "Mỗi chu kỳ" },
+                subtitle: "Nhịp điệu Thủy Động Học (Timing)",
+                img: "https://images.unsplash.com/photo-1557330359-efb0deedfb9b?auto=format&fit=crop&q=80&w=800",
+                stats: { prop: "30% Tay / 70% Chân", drag: "Wave Drag", core: "Gập / Duỗi", breath: "Mỗi chu kỳ" },
                 anatomy: [
-                    {
-                        phase: "Pha Đạp Chân (Whip Kick)",
-                        muscles: "Cơ Khép Đùi (Adductors), Cơ Kheo (Hamstrings), Cơ Bắp Chân",
-                        hydrodynamics: "Tạo lực đẩy mạnh mẽ về phía sau. Vị trí bàn chân gập vuông góc tạo diện tích tiếp xúc nước lớn nhất.",
-                        asiNote: "Rất dễ đau khớp gối nếu đạp sai góc. Cần tập trung mở hông thay vì vặn đầu gối."
-                    },
-                    {
-                        phase: "Pha Quạt Tay (Insweep & Outsweep)",
-                        muscles: "Cơ Ngực (Pectoralis), Cơ Lưng Giữa (Rhomboids)",
-                        hydrodynamics: "Tạo lực nâng để nhô đầu thở và lực đẩy ban đầu. Tay không kéo quá vai để tránh tăng lực cản.",
-                        asiNote: "Học viên lớn tuổi thường gồng vai. Cần cảm nhận việc 'ôm nước' trước ngực chứ không phải kéo nước ra sau lưng."
-                    },
-                    {
-                        phase: "Pha Lướt (Gliding)",
-                        muscles: "Toàn bộ chuỗi cơ tĩnh (Static Core, Erector Spinae)",
-                        hydrodynamics: "Cơ thể thuôn dài nhất (Streamline) để tận dụng quán tính, giảm thiểu tối đa lực cản.",
-                        asiNote: "Giai đoạn quan trọng nhất. Sự 'cảm nhận nước' của ASI nằm ở pha lướt tĩnh lặng này."
-                    }
-                ]
-            },
-            butterfly: {
-                title: "Bơi Bướm (Butterfly)",
-                subtitle: "Sức Mạnh & Sóng Cơ Thể (Body Dolphin)",
-                imageText: "Bơi Bướm - Body Wave",
-                stats: { prop: "50% Tay / 50% Chân", drag: "Sóng Bề Mặt", core: "Uốn lượn (Undulation)", breath: "Nhịp 2 hoặc 1" },
-                anatomy: [
-                    {
-                        phase: "Sóng Thân (Dolphin Kick)",
-                        muscles: "Cơ Bụng Sâu (Transversus), Cơ Lưng Dài (Erector Spinae), Hông",
-                        hydrodynamics: "Tạo chuyển động hình sin truyền từ ngực xuống mũi chân, liên tục tạo lực đẩy.",
-                        asiNote: "Lỗi nặng nhất: Đạp từ đầu gối. Chuyển động bướm chuẩn phải xuất phát từ vùng ức (sternum)."
-                    },
-                    {
-                        phase: "Pha Quạt Tay (Keyhole Pull)",
-                        muscles: "Cơ Xô (Lats), Cơ Vai Trước (Anterior Deltoid), Cơ Ngực",
-                        hydrodynamics: "Kéo nước theo đường cong (hình lỗ khóa) để tối ưu lực bám nước dưới gầm ngực.",
-                        asiNote: "Đòi hỏi sức mạnh cơ lõi cực cao để nhấc thân trên. Không khuyến khích cho học viên yếu cột sống."
-                    },
-                    {
-                        phase: "Pha Vung Tay (Recovery)",
-                        muscles: "Cơ Thang (Trapezius), Cơ Vai Giữa/Sau",
-                        hydrodynamics: "Đưa tay trên mặt nước nhanh, sát mặt nước để tiết kiệm năng lượng và giảm biên độ sóng.",
-                        asiNote: "Cần độ mở khớp vai lớn. Đây là kiểu bơi bộc lộ rõ nhất sự liên kết của toàn bộ hệ vận động."
-                    }
-                ]
-            },
-            backstroke: {
-                title: "Bơi Ngửa (Backstroke)",
-                subtitle: "Cân Bằng Động & Trục Xoay Ngửa",
-                imageText: "Bơi Ngửa - Dorsal Balance",
-                stats: { prop: "70% Tay / 30% Chân", drag: "Surface Tension", core: "Xoay Trục", breath: "Tự do" },
-                anatomy: [
-                    {
-                        phase: "Pha Quạt Tay Dưới Nước",
-                        muscles: "Cơ Xô Lớn, Cơ Tam Đầu (Triceps)",
-                        hydrodynamics: "Bàn tay quét sâu (Deep Catch) tạo lực bám nước vững chắc trong khi cơ thể đang xoay.",
-                        asiNote: "Thường bị lỗi 'bơi nông'. Cần hướng dẫn học viên gập cùi chỏ dưới nước để đẩy nước về thân dưới."
-                    },
-                    {
-                        phase: "Trục Thân Nổi (Supine Position)",
-                        muscles: "Cơ Mông (Glutes), Cơ Thắt Lưng",
-                        hydrodynamics: "Giữ hông nổi sát mặt nước để tránh lực cản hình dáng (chìm mông).",
-                        asiNote: "Với người sợ nước, đây là kiểu bơi trị liệu tốt nhất để giải phóng cơ hoành và cơ cổ."
-                    },
-                    {
-                        phase: "Đạp Chân Ngửa",
-                        muscles: "Cơ Đùi Trước (Quads), Cổ Chân",
-                        hydrodynamics: "Đạp hướng lên mặt nước tạo lực nâng hông.",
-                        asiNote: "Khớp cổ chân phải cực kỳ linh hoạt (plantar flexion) để tạo lực vẩy như đuôi cá."
-                    }
+                    { phase: "Pha Đạp Chân (Whip Kick)", muscles: "Cơ Khép Đùi, Cơ Mông", hydrodynamics: "Bàn chân gập vuông góc tạo diện tích tiếp xúc lớn.", asiNote: "Mở hông rộng, tránh vặn đầu gối quá mức." }
                 ]
             }
+            // Thêm dữ liệu cho Fly và Back ở đây tương tự
         };
 
-        function generateCard(data, index) {
-            return `
-                <div class="glass-panel p-6 rounded-2xl border-l-4 border-blue-500 shadow-lg transform transition duration-300 hover:scale-[1.02]">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 font-bold border border-slate-600">
-                            ${index + 1}
-                        </div>
-                        <h3 class="text-xl font-bold text-white">${data.phase}</h3>
-                    </div>
-                    
-                    <div class="space-y-3 pl-11">
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-1 flex items-center gap-1">
-                                <svg class="w-3 h-3 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
-                                Nhóm Cơ Kích Hoạt
-                            </p>
-                            <p class="text-sm font-medium text-slate-200">${data.muscles}</p>
-                        </div>
-                        
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-1 flex items-center gap-1">
-                                <svg class="w-3 h-3 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
-                                Thủy Động Học (Cơ Chế)
-                            </p>
-                            <p class="text-sm text-slate-300">${data.hydrodynamics}</p>
-                        </div>
-
-                        <div class="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-800/50">
-                            <p class="text-xs text-blue-300 font-semibold mb-1">💡 ASI Coach Note:</p>
-                            <p class="text-sm text-blue-100 italic">"${data.asiNote}"</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
         function changeStyle(styleKey) {
-            const data = swimData[styleKey];
+            const data = swimData[styleKey] || swimData['freestyle'];
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${styleKey}`).classList.add('active');
             
-            // Update Buttons
-            document.querySelectorAll('.nav-button').forEach(btn => {
-                btn.classList.remove('active', 'bg-blue-600', 'text-white', 'font-semibold');
-                btn.classList.add('text-slate-400');
-            });
-            const activeBtn = document.getElementById(`btn-${styleKey}`);
-            activeBtn.classList.remove('text-slate-400');
-            activeBtn.classList.add('active', 'bg-blue-600', 'text-white', 'font-semibold');
-
-            // Update Header Area
             document.getElementById('style-title').textContent = data.title;
             document.getElementById('style-subtitle').textContent = data.subtitle;
-            document.getElementById('main-visual').src = `https://placehold.co/800x450/1e293b/cbd5e1?text=${data.imageText.replace(/ /g, '+')}`;
+            document.getElementById('main-visual').src = data.img;
             
-            // Update Stats
             document.getElementById('stat-propulsion').textContent = data.stats.prop;
             document.getElementById('stat-drag').textContent = data.stats.drag;
             document.getElementById('stat-core').textContent = data.stats.core;
             document.getElementById('stat-breath').textContent = data.stats.breath;
 
-            // Update Content Cards
             const container = document.getElementById('content-container');
-            container.innerHTML = ''; // Clear current
-            
-            // Re-trigger animation
-            container.classList.remove('fade-in');
-            void container.offsetWidth; // trigger reflow
-            container.classList.add('fade-in');
-
-            data.anatomy.forEach((item, index) => {
-                container.innerHTML += generateCard(item, index);
-            });
-            
-            // Update Hint
-            const hints = {
-                freestyle: "Cơ Xô (Latissimus Dorsi) & Cơ Chéo Bụng",
-                breaststroke: "Cơ Khép Đùi (Adductors) & Cơ Ngực",
-                butterfly: "Cơ Lõi Toàn Diện (Core) & Cơ Lưng Dài",
-                backstroke: "Cơ Mông (Glutes) & Cơ Tam Đầu (Triceps)"
-            };
-            document.getElementById('muscle-hint').textContent = `Nhóm cơ lõi trọng tâm: ${hints[styleKey]}`;
+            container.innerHTML = data.anatomy.map((item, index) => `
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-blue-500 fade-in">
+                    <h3 class="text-xl font-bold text-white mb-2">${index+1}. ${item.phase}</h3>
+                    <p class="text-sm text-slate-400 italic mb-2">💪 Cơ kích hoạt: ${item.muscles}</p>
+                    <p class="text-sm text-slate-200 mb-3">${item.hydrodynamics}</p>
+                    <div class="bg-blue-900/20 p-3 rounded-lg text-blue-300 text-xs border border-blue-800/30">
+                        <strong>ASI NOTE:</strong> ${item.asiNote}
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // --- Gemini AI Integration ---
-        const apiKey = "";
-        
-        async function fetchGeminiWithRetry(prompt, systemInstruction, retries = 5) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] }
-            };
-            
-            let delay = 1000;
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error(`HTTP status: ${response.status}`);
-                    const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Không thể phân tích, vui lòng thử lại.";
-                } catch (error) {
-                    if (i === retries - 1) return `Lỗi kết nối AI: ${error.message}`;
-                    await new Promise(res => setTimeout(res, delay));
-                    delay *= 2;
-                }
-            }
-        }
-
-        async function askAIAssistant() {
-            const queryInput = document.getElementById('ai-query');
-            const query = queryInput.value.trim();
-            if (!query) return;
-
-            const btn = document.getElementById('ai-btn');
-            const loading = document.getElementById('ai-loading');
-            const resultContainer = document.getElementById('ai-result-container');
-            const resultContent = document.getElementById('ai-result-content');
-
-            // Cập nhật giao diện UI đang tải
-            btn.disabled = true;
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
-            loading.classList.remove('hidden');
-            resultContainer.classList.add('hidden');
-
-            const systemPrompt = `Bạn là ASI AI Coach, một chuyên gia huấn luyện bơi lội cao cấp áp dụng khoa học giải phẫu và thủy động học.
-Nhiệm vụ của bạn là phân tích lỗi hoặc vấn đề của học viên và đưa ra lời khuyên. 
-Trả lời theo 3 gạch đầu dòng rõ ràng:
-- Nguyên nhân Cơ sinh học (ngắn gọn, tập trung vào momen xoắn, lực cản, hoặc trục thân).
-- Điểm nghẽn Giải phẫu (nhóm cơ nào đang yếu, mất kết nối hoặc bị gồng cứng).
-- Bài tập khắc phục (1-2 drill cụ thể để thiết lập lại kết nối thần kinh dưới nước).
-Giọng điệu chuyên gia, ngắn gọn, dễ hiểu và khích lệ người đọc. Không sử dụng định dạng markdown đậm/nghiêng.`;
-
-            const fullPrompt = `Học viên bơi lội của tôi gặp vấn đề sau: "${query}". Xin hãy phân tích theo phương pháp ASI.`;
-
-            const aiResponse = await fetchGeminiWithRetry(fullPrompt, systemPrompt);
-
-            // Format lại kết quả cho dễ đọc với Tailwind
-            let formattedResponse = aiResponse
-                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-blue-400">$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em class="text-blue-200">$1</em>')
-                .split('\n')
-                .map(line => line.trim() ? `<p class="mb-2">${line.startsWith('-') ? '<span class="text-blue-400 mr-2">•</span>' + line.substring(1) : line}</p>` : '')
-                .join('');
-
-            resultContent.innerHTML = formattedResponse;
-            
-            // Khôi phục UI sau khi AI trả lời xong
-            loading.classList.add('hidden');
-            resultContainer.classList.remove('hidden');
-            btn.disabled = false;
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
-
-        // Initialize on load
         window.onload = () => changeStyle('freestyle');
-
     </script>
-</body>
+
+    </body>
 </html>
